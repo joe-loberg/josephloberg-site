@@ -148,6 +148,7 @@
   .contact-form textarea { resize: vertical; min-height: 120px; }
   .form-status { font-size: 0.85rem; text-align: center; min-height: 1.2em; color: var(--muted); }
   .privacy-note { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 0.5rem; opacity: 0.8; }
+  .contact-success { font-size: 1rem; padding: 2rem; text-align: center; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; color: #16A34A; }
   .form-status.success { color: #16A34A; }
   .form-status.error { color: #DC2626; }
   .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
@@ -433,7 +434,7 @@
     <div class="contact-box">
       <h3>Let's connect</h3>
       <p>Whether you have a role in mind, want to collaborate, or just want to talk shop — send me a message and I'll get back to you.</p>
-      <div data-fs-success class="form-status success" style="display:none">Thanks! Your message has been sent — I'll get back to you soon.</div>
+      <div data-fs-success class="form-status success contact-success" style="display:none">✅ Thanks! Your message has been sent — I'll get back to you soon.</div>
       <div data-fs-error class="form-status error"></div>
       <form id="contact-form" class="contact-form">
         <div class="form-row">
@@ -461,11 +462,11 @@
     </div>
 
     <script>
-      window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-      formspree('initForm', { formElement: '#contact-form', formId: 'xjgzbwnl' });
+      const form = document.getElementById('contact-form');
+      const successMsg = document.querySelector('[data-fs-success]');
+      const submitBtn = form.querySelector('[data-fs-submit-btn]');
 
       // Real-time validation
-      const form = document.getElementById('contact-form');
       const requiredFields = [
         { el: form.querySelector('[name="name"]'), errId: 'err-name', label: 'Name is required.' },
         { el: form.querySelector('[name="email"]'), errId: 'err-email', label: 'A valid email is required.' },
@@ -484,6 +485,7 @@
         errorEl.textContent = msg;
         input.setAttribute('aria-invalid', msg ? 'true' : 'false');
         input.style.borderColor = msg ? '#DC2626' : '';
+        return msg === '';
       }
 
       requiredFields.forEach(({ el, errId, label }) => {
@@ -492,8 +494,43 @@
           if (el.getAttribute('aria-invalid') === 'true') validateField(el, errId, label);
         });
       });
+
+      // Submit via fetch
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Run validation on all required fields before submitting
+        let valid = true;
+        requiredFields.forEach(({ el, errId, label }) => {
+          if (!validateField(el, errId, label)) valid = false;
+        });
+        if (!valid) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        try {
+          const response = await fetch('https://formspree.io/f/xjgzbwnl', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+          } else {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message →';
+            const errEl = document.querySelector('[data-fs-error]');
+            if (errEl) errEl.textContent = 'Something went wrong. Please try again.';
+          }
+        } catch (err) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message →';
+        }
+      });
     </script>
-    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
   </div>
 </section>
 
