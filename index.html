@@ -96,6 +96,9 @@
   .timeline-content .company { color: var(--accent); font-size: 0.9rem; font-weight: 500; }
   .timeline-content .period { color: var(--muted); font-size: 0.82rem; margin-bottom: 0.4rem; }
   .timeline-content p { color: var(--muted); font-size: 0.88rem; }
+  .timeline-bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+  .timeline-bullets li { color: var(--muted); font-size: 0.88rem; padding-left: 1rem; position: relative; }
+  .timeline-bullets li::before { content: "–"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
   /* BOW HUNT TEASER */
   #beyond { background: var(--bg); }
@@ -318,7 +321,11 @@
           <h3>System Engineer II</h3>
           <div class="company">OfferUp</div>
           <div class="period">Sep 2025 – Present · Greater Seattle Area</div>
-          <p>Driving IT initiatives aligned with business goals to enhance operational efficiency. Implemented Okta Realms to improve user account management, and built a custom Slack app that replaced a paid tool for safety alerts. Collaborated cross-functionally with Legal and other teams on strategic projects.</p>
+          <ul class="timeline-bullets">
+            <li>Implemented Okta Realms to streamline user account management</li>
+            <li>Built a custom Slack app that replaced a paid safety alert tool</li>
+            <li>Collaborated cross-functionally with Legal on strategic IT initiatives</li>
+          </ul>
         </div>
       </div>
 
@@ -328,7 +335,11 @@
           <h3>System Engineer</h3>
           <div class="company">OfferUp</div>
           <div class="period">Oct 2022 – Sep 2025 · 3 yrs</div>
-          <p>Drove key initiatives improving security and operational efficiency. Earned AWS Certified Cloud Practitioner certification, managed the annual IT laptop sale and asset lifecycle, and served as an escalation point and mentor for junior team members.</p>
+          <ul class="timeline-bullets">
+            <li>Earned AWS Certified Cloud Practitioner certification</li>
+            <li>Managed annual IT laptop sale and full asset lifecycle</li>
+            <li>Served as escalation point and mentor for junior team members</li>
+          </ul>
         </div>
       </div>
 
@@ -338,7 +349,11 @@
           <h3>IT Support Specialist</h3>
           <div class="company">OfferUp</div>
           <div class="period">Jan 2020 – Oct 2022 · 2 yrs 10 mos</div>
-          <p>Supported IT operations by resolving tickets, troubleshooting hardware and software, and provisioning machines for new hires. Leveraged Atlassian, Google Workspace, and Okta, and contributed to the evolution of internal documentation.</p>
+          <ul class="timeline-bullets">
+            <li>Resolved tickets and troubleshot hardware and software issues</li>
+            <li>Provisioned machines and onboarded new hires</li>
+            <li>Drove evolution of internal documentation across Atlassian tools</li>
+          </ul>
         </div>
       </div>
 
@@ -348,7 +363,11 @@
           <h3>Safety & Security Specialist</h3>
           <div class="company">OfferUp</div>
           <div class="period">Feb 2017 – Jan 2020 · 3 yrs</div>
-          <p>Implemented facility safety practices across the Greater Seattle Area. Served on the safety committee, overseeing access control, mass notification systems, and onsite cameras. Authored safety policies to ensure employee well-being.</p>
+          <ul class="timeline-bullets">
+            <li>Oversaw access control, mass notification systems, and onsite cameras</li>
+            <li>Served on the safety committee across the Greater Seattle Area</li>
+            <li>Authored safety policies to ensure employee well-being</li>
+          </ul>
         </div>
       </div>
 
@@ -358,7 +377,11 @@
           <h3>Asset Protection Associate</h3>
           <div class="company">Walmart</div>
           <div class="period">Dec 2014 – Feb 2017 · 2 yrs 3 mos</div>
-          <p>Maintained store security and customer relations. Directed daily operations, managed customer de-escalation, conducted loss prevention activities, and supported legal proceedings including court hearings.</p>
+          <ul class="timeline-bullets">
+            <li>Conducted loss prevention and maintained store security</li>
+            <li>Managed customer de-escalation and daily operations</li>
+            <li>Supported legal proceedings including court hearings</li>
+          </ul>
         </div>
       </div>
 
@@ -368,7 +391,11 @@
           <h3>Corporal</h3>
           <div class="company">US Marine Corps</div>
           <div class="period">Jul 2009 – Jul 2014 · 5 yrs 1 mo · Camp Pendleton, CA</div>
-          <p>Served with full-time commitment, developing leadership, discipline, and operational skills that have grounded every role since.</p>
+          <ul class="timeline-bullets">
+            <li>Served with full-time commitment for 5 years</li>
+            <li>Developed leadership, discipline, and operational skills</li>
+            <li>Built a foundation that has grounded every role since</li>
+          </ul>
         </div>
       </div>
 
