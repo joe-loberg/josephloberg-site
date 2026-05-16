@@ -142,8 +142,12 @@
     background: #fff; color: var(--text); transition: border-color 0.2s; outline: none;
   }
   .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); }
+  .contact-form input[aria-invalid="true"], .contact-form textarea[aria-invalid="true"] { border-color: #DC2626; outline: none; }
+  .field-wrap { display: flex; flex-direction: column; gap: 0.25rem; }
+  .field-error { font-size: 0.75rem; color: #DC2626; min-height: 1em; }
   .contact-form textarea { resize: vertical; min-height: 120px; }
   .form-status { font-size: 0.85rem; text-align: center; min-height: 1.2em; color: var(--muted); }
+  .privacy-note { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 0.5rem; opacity: 0.8; }
   .form-status.success { color: #16A34A; }
   .form-status.error { color: #DC2626; }
   .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
@@ -429,16 +433,27 @@
     <div class="contact-box">
       <h3>Let's connect</h3>
       <p>Whether you have a role in mind, want to collaborate, or just want to talk shop — send me a message and I'll get back to you.</p>
-      <div class="contact-form">
+      <div data-fs-success class="form-status success" style="display:none">Thanks! Your message has been sent — I'll get back to you soon.</div>
+      <div data-fs-error class="form-status error"></div>
+      <form id="contact-form" class="contact-form">
         <div class="form-row">
-          <input type="text" id="cf-name" placeholder="Your name" />
-          <input type="email" id="cf-email" placeholder="Your email" />
+          <div class="field-wrap">
+            <input type="text" name="name" placeholder="Your name" data-fs-field required />
+            <span class="field-error" id="err-name"></span>
+          </div>
+          <div class="field-wrap">
+            <input type="email" name="email" placeholder="Your email" data-fs-field required />
+            <span class="field-error" id="err-email"></span>
+          </div>
         </div>
-        <input type="text" id="cf-subject" placeholder="Subject" />
-        <textarea id="cf-message" placeholder="Your message..."></textarea>
-        <button class="btn btn-primary" onclick="submitForm()">Send Message →</button>
-        <p class="form-status" id="form-status"></p>
-      </div>
+        <input type="text" name="subject" placeholder="Subject" data-fs-field />
+        <div class="field-wrap">
+          <textarea name="message" placeholder="Your message..." data-fs-field required></textarea>
+          <span class="field-error" id="err-message"></span>
+        </div>
+        <button class="btn btn-primary" data-fs-submit-btn type="submit">Send Message →</button>
+      </form>
+      <p class="privacy-note">Your information is used solely to respond to your message and is not shared with third parties.</p>
       <div class="social-links">
         <a href="https://www.linkedin.com/in/joseph-loberg/" target="_blank">LinkedIn</a>
         <a href="https://github.com/joe-loberg" target="_blank">GitHub</a>
@@ -446,23 +461,39 @@
     </div>
 
     <script>
-      function submitForm() {
-        const name = document.getElementById('cf-name').value.trim();
-        const email = document.getElementById('cf-email').value.trim();
-        const subject = document.getElementById('cf-subject').value.trim();
-        const message = document.getElementById('cf-message').value.trim();
-        const status = document.getElementById('form-status');
-        if (!name || !email || !message) {
-          status.textContent = 'Please fill in your name, email, and message.';
-          status.className = 'form-status error';
-          return;
+      window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+      formspree('initForm', { formElement: '#contact-form', formId: 'xjgzbwnl' });
+
+      // Real-time validation
+      const form = document.getElementById('contact-form');
+      const requiredFields = [
+        { el: form.querySelector('[name="name"]'), errId: 'err-name', label: 'Name is required.' },
+        { el: form.querySelector('[name="email"]'), errId: 'err-email', label: 'A valid email is required.' },
+        { el: form.querySelector('[name="message"]'), errId: 'err-message', label: 'Message is required.' }
+      ];
+
+      function validateField(input, errId, label) {
+        const errorEl = document.getElementById(errId);
+        if (!errorEl) return;
+        let msg = '';
+        if (!input.value.trim()) {
+          msg = label;
+        } else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) {
+          msg = 'Please enter a valid email address.';
         }
-        const mailto = `mailto:contactme@josephloberg.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-        window.location.href = mailto;
-        status.textContent = "Opening your email client...";
-        status.className = 'form-status success';
+        errorEl.textContent = msg;
+        input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+        input.style.borderColor = msg ? '#DC2626' : '';
       }
+
+      requiredFields.forEach(({ el, errId, label }) => {
+        el.addEventListener('blur', () => validateField(el, errId, label));
+        el.addEventListener('input', () => {
+          if (el.getAttribute('aria-invalid') === 'true') validateField(el, errId, label);
+        });
+      });
     </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
   </div>
 </section>
 
