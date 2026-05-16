@@ -70,16 +70,17 @@
   .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
 
   /* PROJECTS */
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: box-shadow 0.2s, transform 0.2s; }
-  .project-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.07); transform: translateY(-2px); }
+  .projects-wrapper { position: relative; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; filter: blur(4px); pointer-events: none; user-select: none; }
+  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
   .project-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
   .project-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1rem; }
   .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
   .project-tag { background: var(--accent-light); color: var(--accent); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
   .project-links { display: flex; gap: 1rem; }
-  .project-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
-  .project-links a:hover { color: var(--accent); }
+  .project-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; font-weight: 500; }
+  .projects-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; }
+  .projects-banner { background: var(--text); color: #fff; padding: 0.75rem 2.5rem; border-radius: 999px; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
 
   /* EXPERIENCE */
   #experience { background: var(--card); }
@@ -254,6 +255,8 @@
   <div class="container">
     <h2 class="section-title">Projects</h2>
     <div class="section-line"></div>
+    <div class="projects-wrapper">
+    <div class="projects-overlay"><span class="projects-banner">Coming Soon</span></div>
     <div class="projects-grid">
 
       <div class="project-card">
@@ -298,6 +301,7 @@
       </div>
 
     </div>
+    </div><!-- /projects-wrapper -->
   </div>
 </section>
 
