@@ -67,6 +67,10 @@
   #about { background: var(--card); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
   .about-bio p { color: var(--muted); margin-bottom: 1rem; }
+  .about-full { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease; opacity: 0; }
+  .about-full.open { max-height: 1000px; opacity: 1; }
+  .about-toggle { background: none; border: none; color: var(--accent); font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0 0; transition: opacity 0.2s; }
+  .about-toggle:hover { opacity: 0.7; }
   .skills-title { font-weight: 600; margin-bottom: 1rem; }
   .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .skill-tag { background: var(--bg); border: 1px solid var(--border); padding: 4px 12px; border-radius: 6px; font-size: 0.82rem; color: var(--text); font-weight: 500; transition: all 0.2s; }
@@ -99,9 +103,10 @@
   .timeline-content .company { color: var(--accent); font-size: 0.9rem; font-weight: 500; }
   .timeline-content .period { color: var(--muted); font-size: 0.82rem; margin-bottom: 0.4rem; }
   .timeline-content p { color: var(--muted); font-size: 0.88rem; }
-  .timeline-bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.35rem; }
-  .timeline-bullets li { color: var(--muted); font-size: 0.88rem; padding-left: 1rem; position: relative; }
-  .timeline-bullets li::before { content: "–"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+  .timeline-summary { color: var(--muted); font-size: 0.88rem; margin: 0; }
+  .experience-linkedin { font-size: 0.88rem; color: var(--muted); margin-bottom: 2rem; }
+  .experience-linkedin a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .experience-linkedin a:hover { text-decoration: underline; }
 
   /* BOW HUNT TEASER */
   #beyond { background: var(--bg); }
@@ -201,6 +206,13 @@
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
   <script>
+    function toggleBio() {
+      const full = document.getElementById('about-full');
+      const btn = document.getElementById('about-toggle');
+      full.classList.toggle('open');
+      btn.textContent = full.classList.contains('open') ? 'Collapse ↑' : 'Read more about me ↓';
+    }
+
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
     hamburger.addEventListener('click', () => {
@@ -219,8 +231,8 @@
   <div class="hero-inner">
     <div class="hero-text">
       <span class="tag">Open to opportunities</span>
-      <h1>Hi, I'm Joseph Loberg 👋</h1>
-      <p>Systems Engineer based in the Greater Seattle Area. I love untangling complex IT challenges, building things that make people's work easier, and bringing a bit of that Marine Corps "figure it out" energy to everything I do.</p>
+      <h1>Hi, I'm Joseph 👋</h1>
+      <p>Father of four, USMC veteran, and System Engineer II based in the Greater Seattle Area. I untangle complex IT challenges and build things that make people's work easier.</p>
       <div class="btn-row">
         <a href="#projects" class="btn btn-primary">View My Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -237,8 +249,17 @@
     <div class="section-line"></div>
     <div class="about-grid">
       <div class="about-bio">
-        <p>I'm a results-driven Systems Engineer with a strong background in identity and access management (IAM), cloud infrastructure, and automation. I lead complex projects, mentor junior team members, and drive operational efficiency through expertise in Okta, AWS, and Jamf.</p>
-        <p>I thrive on solving critical business challenges by drawing on a diverse skill set shaped by both corporate and military experience — and when I'm not in the weeds on an IT initiative, you'll find me out in the Pacific Northwest pursuing the next adventure.</p>
+        <p>On the professional side, I'm always looking for the next thing to learn and build. This site is a good example — I used AI to help me navigate purchasing a domain, setting up email routing, building and deploying the front end, integrating third-party tools, and everything in between. Not because I couldn't eventually figure it out alone, but because I wanted to see how far I could get by working smarter. I'm currently renewing my AWS Certified Cloud Practitioner certification and working toward my Okta Administrator certification — both a natural extension of the work I do every day.</p>
+        <div class="about-expand">
+          <div class="about-full" id="about-full">
+            <p>I've spent most of my career at the intersection of people and technology — figuring out what's broken, building what's missing, and making things easier for the folks around me. What keeps me hooked on tech is simple: it never stops moving. For someone with ADHD, that's less of a challenge and more of a feature.</p>
+            <p>My path here wasn't exactly linear. I served five years as a Military Policeman in the Marine Corps — stationed in Okinawa, Japan, where I got to travel across the Pacific before deploying to Afghanistan. Back stateside at Camp Pendleton, I trained Marines on what I'd learned downrange, then transitioned to the Provost Marshal's Office enforcing Federal and State law alongside federal officers before I got out. The Corps built a foundation that shows up in everything I do.</p>
+            <p>While serving I fell in love with fitness — first as a runner, then bodybuilding, powerlifting, and eventually strongman. What hooked me was being able to see progress in real time: grinding through 6 sets of 3 at 315 with straps, then one day repping the same weight for 10 without them. Double Achilles tendonitis had other plans, so the focus has shifted to staying strong and moving well — a lot more mobility work and cardio than I'd like to admit.</p>
+            <p>Outside of work I'm a family man through and through. My blended family of six keeps life full — two older boys, two younger girls, and a schedule that revolves around sports sidelines and exploring the Pacific Northwest. I'm originally from Bird Creek, Alaska, and after years of moving around — Washington, Alaska, Nevada, the Marines — I landed back in Washington for family, and everything else has fallen into place. I recently picked up a compound bow, and the plan is to document the whole journey from beginner to first harvest. I was a five-time expert rifleman in the Marines, so rifle hunting never felt like the right challenge — I'd rather earn it the hard way, up close.</p>
+            <p><em>If I seem like someone who overshares a little — that's accurate, and I've made peace with it.</em></p>
+          </div>
+          <button class="about-toggle" id="about-toggle" onclick="toggleBio()">Read more about me ↓</button>
+        </div>
       </div>
       <div>
         <p class="skills-title">Tech Stack</p>
@@ -321,6 +342,7 @@
   <div class="container">
     <h2 class="section-title">Experience</h2>
     <div class="section-line"></div>
+    <p class="experience-linkedin">For a detailed view of my experience, <a href="https://www.linkedin.com/in/joseph-loberg/" target="_blank">visit my LinkedIn →</a></p>
     <div class="timeline">
 
       <div class="timeline-item">
@@ -329,11 +351,7 @@
           <h3>System Engineer II</h3>
           <div class="company">OfferUp</div>
           <div class="period">Sep 2025 – Present · Greater Seattle Area</div>
-          <ul class="timeline-bullets">
-            <li>Implemented Okta Realms to streamline user account management</li>
-            <li>Built a custom Slack app that replaced a paid safety alert tool</li>
-            <li>Collaborated cross-functionally with Legal on strategic IT initiatives</li>
-          </ul>
+          <p class="timeline-summary">Driving IT initiatives across IAM, automation, and cross-functional collaboration to improve operational efficiency.</p>
         </div>
       </div>
 
@@ -343,11 +361,7 @@
           <h3>System Engineer</h3>
           <div class="company">OfferUp</div>
           <div class="period">Oct 2022 – Sep 2025 · 3 yrs</div>
-          <ul class="timeline-bullets">
-            <li>Earned AWS Certified Cloud Practitioner certification</li>
-            <li>Managed annual IT laptop sale and full asset lifecycle</li>
-            <li>Served as escalation point and mentor for junior team members</li>
-          </ul>
+          <p class="timeline-summary">Contributed to security and efficiency initiatives alongside senior engineers while mentoring junior team members and managing IT asset lifecycle.</p>
         </div>
       </div>
 
@@ -357,11 +371,7 @@
           <h3>IT Support Specialist</h3>
           <div class="company">OfferUp</div>
           <div class="period">Jan 2020 – Oct 2022 · 2 yrs 10 mos</div>
-          <ul class="timeline-bullets">
-            <li>Resolved tickets and troubleshot hardware and software issues</li>
-            <li>Provisioned machines and onboarded new hires</li>
-            <li>Drove evolution of internal documentation across Atlassian tools</li>
-          </ul>
+          <p class="timeline-summary">Provided frontline IT support, onboarded new hires, and helped evolve internal documentation and processes.</p>
         </div>
       </div>
 
@@ -371,11 +381,7 @@
           <h3>Safety & Security Specialist</h3>
           <div class="company">OfferUp</div>
           <div class="period">Feb 2017 – Jan 2020 · 3 yrs</div>
-          <ul class="timeline-bullets">
-            <li>Oversaw access control, mass notification systems, and onsite cameras</li>
-            <li>Served on the safety committee across the Greater Seattle Area</li>
-            <li>Authored safety policies to ensure employee well-being</li>
-          </ul>
+          <p class="timeline-summary">Oversaw and managed physical security, access control, and safety policies for the company.</p>
         </div>
       </div>
 
@@ -385,11 +391,7 @@
           <h3>Asset Protection Associate</h3>
           <div class="company">Walmart</div>
           <div class="period">Dec 2014 – Feb 2017 · 2 yrs 3 mos</div>
-          <ul class="timeline-bullets">
-            <li>Conducted loss prevention and maintained store security</li>
-            <li>Managed customer de-escalation and daily operations</li>
-            <li>Supported legal proceedings including court hearings</li>
-          </ul>
+          <p class="timeline-summary">Maintained store security, conducted loss prevention, managed customer de-escalation, and ensured safety compliance including hazmat, eyewash stations, fire extinguishers, emergency lighting, and slip/trip/fall prevention.</p>
         </div>
       </div>
 
@@ -399,11 +401,7 @@
           <h3>Corporal</h3>
           <div class="company">US Marine Corps</div>
           <div class="period">Jul 2009 – Jul 2014 · 5 yrs 1 mo · Camp Pendleton, CA</div>
-          <ul class="timeline-bullets">
-            <li>Served with full-time commitment for 5 years</li>
-            <li>Developed leadership, discipline, and operational skills</li>
-            <li>Built a foundation that has grounded every role since</li>
-          </ul>
+          <p class="timeline-summary">Served as a Military Policeman stationed in Okinawa, Japan and Camp Pendleton, with one deployment to Afghanistan — building a foundation of discipline and leadership that carries through everything since.</p>
         </div>
       </div>
 
