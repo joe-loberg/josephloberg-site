@@ -8,6 +8,14 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Joseph Loberg</title>
+  <meta name="description" content="Personal brand hub of Joseph Loberg — System Engineer II, USMC Veteran, and father of four based in the Greater Seattle Area." />
+  <meta property="og:title" content="Joseph Loberg" />
+  <meta property="og:description" content="System Engineer II · USMC Veteran · Greater Seattle Area" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://josephloberg.com" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Joseph Loberg" />
+  <meta name="twitter:description" content="System Engineer II · USMC Veteran · Greater Seattle Area" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -21,11 +29,43 @@
     --bg: #FFFFFF;
     --card: #F9FAFB;
   }
+  [data-theme="dark"] {
+    --accent: #4ADE80;
+    --accent-light: #052e16;
+    --earth: #FCD34D;
+    --earth-light: #1c1008;
+    --text: #F9FAFB;
+    --muted: #9CA3AF;
+    --border: #374151;
+    --bg: #111827;
+    --card: #1F2937;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --accent: #4ADE80;
+      --accent-light: #052e16;
+      --earth: #FCD34D;
+      --earth-light: #1c1008;
+      --text: #F9FAFB;
+      --muted: #9CA3AF;
+      --border: #374151;
+      --bg: #111827;
+      --card: #1F2937;
+    }
+  }
   html { scroll-behavior: smooth; }
   body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
 
   /* NAV */
   nav { position: sticky; top: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 100; }
+  [data-theme="dark"] nav, @media (prefers-color-scheme: dark) { }
+  nav { background: color-mix(in srgb, var(--bg) 92%, transparent); }
+  .nav-links a.active { color: var(--accent); font-weight: 600; }
+  .dark-toggle { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); cursor: pointer; padding: 4px 8px; font-size: 0.85rem; transition: all 0.2s; margin-left: 1rem; }
+  .dark-toggle:hover { color: var(--accent); border-color: var(--accent); }
+  .back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--accent); color: #fff; border: none; border-radius: 50%; width: 42px; height: 42px; font-size: 1.1rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; z-index: 200; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .back-to-top.visible { opacity: 1; pointer-events: all; }
+  .back-to-top:hover { transform: translateY(-2px); }
   .nav-inner { max-width: 960px; margin: auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; height: 60px; }
   .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; white-space: nowrap; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -36,7 +76,7 @@
   .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .nav-mobile-menu { display: none; flex-direction: column; background: rgba(255,255,255,0.97); border-top: 1px solid var(--border); padding: 1rem 2rem; gap: 0; }
+  .nav-mobile-menu { display: none; flex-direction: column; background: var(--bg); border-top: 1px solid var(--border); padding: 1rem 2rem; gap: 0; }
   .nav-mobile-menu.open { display: flex; }
   .nav-mobile-menu li { list-style: none; }
   .nav-mobile-menu a { display: block; padding: 0.75rem 0; color: var(--muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; border-bottom: 1px solid var(--border); transition: color 0.2s; }
@@ -199,6 +239,7 @@
       <li><a href="#beyond">Beyond Work</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -211,6 +252,54 @@
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
   <script>
+    // Dark mode
+    const darkToggle = document.getElementById('dark-toggle');
+    const root = document.documentElement;
+
+    function getSystemDark() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    function applyTheme(dark) {
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      darkToggle.textContent = dark ? '☀️' : '🌙';
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+
+    // On load: respect saved preference or fall back to system
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      applyTheme(saved === 'dark');
+    } else {
+      applyTheme(getSystemDark());
+    }
+
+    darkToggle.addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      applyTheme(!isDark);
+    });
+
+    // Active nav on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+
+      // Back to top
+      const btn = document.getElementById('back-to-top');
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     function toggleBio() {
       const full = document.getElementById('about-full');
       const btn = document.getElementById('about-toggle');
@@ -547,5 +636,6 @@
   <p>Designed & built by Joseph Loberg · 2026</p>
 </footer>
 
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 </body>
 </html>
