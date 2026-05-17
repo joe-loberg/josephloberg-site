@@ -61,7 +61,7 @@
   [data-theme="dark"] nav, @media (prefers-color-scheme: dark) { }
   nav { background: color-mix(in srgb, var(--bg) 92%, transparent); }
   .nav-links a.active { color: var(--accent); font-weight: 600; }
-  .dark-toggle { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); cursor: pointer; padding: 4px 8px; font-size: 0.85rem; transition: all 0.2s; margin-left: 1rem; }
+  .dark-toggle { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); cursor: pointer; padding: 5px 12px; font-size: 0.8rem; transition: all 0.2s; }
   .dark-toggle:hover { color: var(--accent); border-color: var(--accent); }
   .back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--accent); color: #fff; border: none; border-radius: 50%; width: 42px; height: 42px; font-size: 1.1rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; z-index: 200; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
   .back-to-top.visible { opacity: 1; pointer-events: all; }
@@ -239,7 +239,6 @@
       <li><a href="#beyond">Beyond Work</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -296,8 +295,13 @@
       btn.classList.toggle('visible', window.scrollY > 400);
     });
 
-    document.getElementById('back-to-top').addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.addEventListener('DOMContentLoaded', () => {
+      const backBtn = document.getElementById('back-to-top');
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
     });
 
     function toggleBio() {
@@ -634,6 +638,7 @@
     <a class="social-coming-soon" title="YouTube — Coming Soon"><i class="fab fa-youtube"></i></a>
   </div>
   <p>Designed & built by Joseph Loberg · 2026</p>
+  <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" style="margin-top:0.75rem;">🌙 Toggle Dark Mode</button>
 </footer>
 
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
