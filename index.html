@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -160,8 +161,12 @@
   .form-status.success { color: #16A34A; }
   .form-status.error { color: #DC2626; }
   .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
-  .social-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .social-links a, .social-links .social-coming-soon { color: var(--muted); text-decoration: none; font-size: 1.4rem; transition: color 0.2s, opacity 0.2s; }
   .social-links a:hover { color: var(--accent); }
+  .social-coming-soon { opacity: 0.35; cursor: default; }
+  .footer-icons { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 0.75rem; }
+  .footer-icons a, .footer-icons .social-coming-soon { color: var(--muted); text-decoration: none; font-size: 1.3rem; transition: color 0.2s, opacity 0.2s; }
+  .footer-icons a:hover { color: var(--accent); }
   @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
 
   footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
@@ -457,8 +462,10 @@
       </form>
       <p class="privacy-note">Your information is used solely to respond to your message and is not shared with third parties.</p>
       <div class="social-links">
-        <a href="https://www.linkedin.com/in/joseph-loberg/" target="_blank">LinkedIn</a>
-        <a href="https://github.com/joe-loberg" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/joseph-loberg/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/joe-loberg" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a class="social-coming-soon" title="Instagram — Coming Soon"><i class="fab fa-instagram"></i></a>
+        <a class="social-coming-soon" title="YouTube — Coming Soon"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
 
@@ -536,6 +543,12 @@
 </section>
 
 <footer>
+  <div class="footer-icons">
+    <a href="https://www.linkedin.com/in/joseph-loberg/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://github.com/joe-loberg" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+    <a class="social-coming-soon" title="Instagram — Coming Soon"><i class="fab fa-instagram"></i></a>
+    <a class="social-coming-soon" title="YouTube — Coming Soon"><i class="fab fa-youtube"></i></a>
+  </div>
   <p>Designed & built by Joseph Loberg · 2026</p>
 </footer>
 
