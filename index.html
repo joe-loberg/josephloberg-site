@@ -252,7 +252,6 @@
   </ul>
   <script>
     // Dark mode
-    const darkToggle = document.getElementById('dark-toggle');
     const root = document.documentElement;
 
     function getSystemDark() {
@@ -261,27 +260,24 @@
 
     function applyTheme(dark) {
       root.setAttribute('data-theme', dark ? 'dark' : 'light');
-      darkToggle.textContent = dark ? '☀️' : '🌙';
+      const toggle = document.getElementById('dark-toggle');
+      if (toggle) toggle.textContent = dark ? '☀️ Toggle Light Mode' : '🌙 Toggle Dark Mode';
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
 
     // On load: respect saved preference or fall back to system
     const saved = localStorage.getItem('theme');
-    if (saved) {
-      applyTheme(saved === 'dark');
-    } else {
-      applyTheme(getSystemDark());
-    }
+    applyTheme(saved ? saved === 'dark' : getSystemDark());
 
-    darkToggle.addEventListener('click', () => {
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      applyTheme(!isDark);
+    document.getElementById('dark-toggle').addEventListener('click', () => {
+      applyTheme(root.getAttribute('data-theme') !== 'dark');
     });
 
     // Active nav on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
+
+    function onScroll() {
       let current = '';
       sections.forEach(sec => {
         if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
@@ -289,20 +285,18 @@
       navLinks.forEach(a => {
         a.classList.toggle('active', a.getAttribute('href') === '#' + current);
       });
-
-      // Back to top
-      const btn = document.getElementById('back-to-top');
-      btn.classList.toggle('visible', window.scrollY > 400);
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
       const backBtn = document.getElementById('back-to-top');
-      if (backBtn) {
-        backBtn.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-    });
+      if (backBtn) backBtn.classList.toggle('visible', window.scrollY > 400);
+    }
+
+    window.addEventListener('scroll', onScroll);
+
+    const backBtn = document.getElementById('back-to-top');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
 
     function toggleBio() {
       const full = document.getElementById('about-full');
