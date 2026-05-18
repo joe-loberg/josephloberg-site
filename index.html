@@ -61,8 +61,7 @@
   [data-theme="dark"] nav, @media (prefers-color-scheme: dark) { }
   nav { background: color-mix(in srgb, var(--bg) 92%, transparent); }
   .nav-links a.active { color: var(--accent); font-weight: 600; }
-  .dark-toggle { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); cursor: pointer; padding: 5px 12px; font-size: 0.8rem; transition: all 0.2s; }
-  .dark-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
   .back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--accent); color: #fff; border: none; border-radius: 50%; width: 42px; height: 42px; font-size: 1.1rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; z-index: 200; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
   .back-to-top.visible { opacity: 1; pointer-events: all; }
   .back-to-top:hover { transform: translateY(-2px); }
@@ -119,7 +118,7 @@
 
   /* PROJECTS */
   .projects-wrapper { position: relative; }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; filter: blur(4px); pointer-events: none; user-select: none; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; filter: blur(4px); pointer-events: none; user-select: none; opacity: 0.5; }
   .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
   .project-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
   .project-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1rem; }
@@ -127,8 +126,8 @@
   .project-tag { background: var(--accent-light); color: var(--accent); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
   .project-links { display: flex; gap: 1rem; }
   .project-links a { font-size: 0.82rem; color: var(--muted); text-decoration: none; font-weight: 500; }
-  .projects-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; }
-  .projects-banner { background: var(--text); color: #fff; padding: 0.75rem 2.5rem; border-radius: 999px; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+  .projects-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; background: transparent; }
+  .projects-banner { background: var(--accent); color: #fff; padding: 0.75rem 2.5rem; border-radius: 999px; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
 
   /* EXPERIENCE */
   #experience { background: var(--card); }
@@ -209,7 +208,8 @@
   .footer-icons a:hover { color: var(--accent); }
   @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
 
-  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
+  footer { padding: 2rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
 
   @media (max-width: 768px) {
     .nav-links { display: none; }
@@ -260,8 +260,6 @@
 
     function applyTheme(dark) {
       root.setAttribute('data-theme', dark ? 'dark' : 'light');
-      const toggle = document.getElementById('dark-toggle');
-      if (toggle) toggle.textContent = dark ? '☀️ Toggle Light Mode' : '🌙 Toggle Dark Mode';
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
 
@@ -269,18 +267,7 @@
     const saved = localStorage.getItem('theme');
     applyTheme(saved ? saved === 'dark' : getSystemDark());
 
-    // Dark toggle wired up after DOM ready
-    window.addEventListener('load', () => {
-      const toggle = document.getElementById('dark-toggle');
-      if (toggle) {
-        // Sync label to current theme
-        const isDark = root.getAttribute('data-theme') === 'dark';
-        toggle.textContent = isDark ? '☀️ Toggle Light Mode' : '🌙 Toggle Dark Mode';
-        toggle.addEventListener('click', () => {
-          applyTheme(root.getAttribute('data-theme') !== 'dark');
-        });
-      }
-    });
+
 
     // Active nav on scroll
     const sections = document.querySelectorAll('section[id]');
@@ -300,12 +287,14 @@
 
     window.addEventListener('scroll', onScroll);
 
-    const backBtn = document.getElementById('back-to-top');
-    if (backBtn) {
-      backBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
+    window.addEventListener('load', () => {
+      const backBtn = document.getElementById('back-to-top');
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
 
     function toggleBio() {
       const full = document.getElementById('about-full');
@@ -640,8 +629,9 @@
     <a class="social-coming-soon" title="Instagram — Coming Soon"><i class="fab fa-instagram"></i></a>
     <a class="social-coming-soon" title="YouTube — Coming Soon"><i class="fab fa-youtube"></i></a>
   </div>
-  <p>Designed & built by Joseph Loberg · 2026</p>
-  <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" style="margin-top:0.75rem;">🌙 Toggle Dark Mode</button>
+  <div class="footer-bottom">
+    <p>Designed & built by Joseph Loberg · 2026</p>
+  </div>
 </footer>
 
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
