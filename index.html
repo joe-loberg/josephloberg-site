@@ -269,26 +269,25 @@
 
 
 
-    // Active nav on scroll
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    function onScroll() {
-      let current = '';
-      sections.forEach(sec => {
-        if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
-      });
-      navLinks.forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-      });
-      const backBtn = document.getElementById('back-to-top');
-      if (backBtn) backBtn.classList.toggle('visible', window.scrollY > 400);
-    }
-
-    window.addEventListener('scroll', onScroll);
-
     window.addEventListener('load', () => {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-links a');
       const backBtn = document.getElementById('back-to-top');
+
+      function onScroll() {
+        let current = '';
+        sections.forEach(sec => {
+          if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+        });
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+        if (backBtn) backBtn.classList.toggle('visible', window.scrollY > 400);
+      }
+
+      window.addEventListener('scroll', onScroll);
+      onScroll(); // run once on load to set initial state
+
       if (backBtn) {
         backBtn.addEventListener('click', () => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
