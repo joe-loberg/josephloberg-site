@@ -265,12 +265,21 @@
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
 
-    // On load: respect saved preference or fall back to system
+    // On load: apply theme (button not yet in DOM, that's ok — applyTheme checks)
     const saved = localStorage.getItem('theme');
     applyTheme(saved ? saved === 'dark' : getSystemDark());
 
-    document.getElementById('dark-toggle').addEventListener('click', () => {
-      applyTheme(root.getAttribute('data-theme') !== 'dark');
+    // Dark toggle wired up after DOM ready
+    window.addEventListener('load', () => {
+      const toggle = document.getElementById('dark-toggle');
+      if (toggle) {
+        // Sync label to current theme
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        toggle.textContent = isDark ? '☀️ Toggle Light Mode' : '🌙 Toggle Dark Mode';
+        toggle.addEventListener('click', () => {
+          applyTheme(root.getAttribute('data-theme') !== 'dark');
+        });
+      }
     });
 
     // Active nav on scroll
