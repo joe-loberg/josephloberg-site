@@ -104,14 +104,14 @@
   .hero-avatar { width: 180px; height: 180px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 4rem; }
 
   /* ABOUT */
-  #about { background: var(--bg); }
+  #about { background: var(--card); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
   .about-bio p { color: var(--muted); margin-bottom: 1rem; }
   .about-full { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, opacity 0.4s ease; opacity: 0; }
   .about-full.open { max-height: 3000px; opacity: 1; }
   .about-toggle { background: none; border: none; color: var(--accent); font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0 0; transition: opacity 0.2s; }
   .about-toggle:hover { opacity: 0.7; }
-  #skills { background: var(--card); }
+  #skills { background: var(--bg); }
   .skills-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
   @media (max-width: 640px) { .skills-two-col { grid-template-columns: 1fr; } }
   .skills-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--text); }
@@ -122,6 +122,7 @@
   .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
 
   /* PROJECTS */
+  #projects { background: var(--bg); }
   .projects-wrapper { position: relative; }
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; filter: blur(4px); pointer-events: none; user-select: none; opacity: 0.5; }
   .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
@@ -135,7 +136,7 @@
   .projects-banner { background: var(--accent); color: #fff; padding: 0.75rem 2.5rem; border-radius: 999px; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
 
   /* EXPERIENCE */
-  #experience { background: var(--bg); }
+  #experience { background: var(--card); }
   .timeline { display: flex; flex-direction: column; gap: 0; }
   .timeline-item { display: flex; gap: 1.5rem; padding-bottom: 2rem; position: relative; }
   .timeline-item:last-child { padding-bottom: 0; }
@@ -154,7 +155,7 @@
   .experience-linkedin a:hover { text-decoration: underline; }
 
   /* BOW HUNT TEASER */
-  #beyond { background: var(--bg); }
+  #beyond { background: var(--card); }
   .beyond-card {
     border-radius: 16px;
     overflow: hidden;
@@ -185,6 +186,7 @@
   .beehiiv-embed { margin-top: 1.25rem; width: 100%; }
 
   /* CONTACT */
+  #contact { background: var(--bg); }
   .contact-box { background: var(--accent-light); border-radius: 16px; padding: 3rem; }
   .contact-box h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
   .contact-box > p { color: var(--muted); margin-bottom: 2rem; }
