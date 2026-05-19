@@ -111,6 +111,9 @@
   .about-full.open { max-height: 3000px; opacity: 1; }
   .about-toggle { background: none; border: none; color: var(--accent); font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0 0; transition: opacity 0.2s; }
   .about-toggle:hover { opacity: 0.7; }
+  #skills { background: var(--card); }
+  .skills-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  @media (max-width: 640px) { .skills-two-col { grid-template-columns: 1fr; } }
   .skills-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--text); }
   .skills-category { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin: 1rem 0 0.5rem; }
   .skills-section { display: flex; flex-direction: column; }
@@ -237,8 +240,9 @@
     <a href="#hero" class="nav-logo">Joseph Loberg</a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#beyond">Beyond Work</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -248,8 +252,9 @@
   </div>
   <ul class="nav-mobile-menu" id="mobile-menu">
     <li><a href="#about" onclick="closeMenu()">About</a></li>
-    <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+    <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
     <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
+    <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
     <li><a href="#beyond" onclick="closeMenu()">Beyond Work</a></li>
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
@@ -353,9 +358,19 @@
           <button class="about-toggle" id="about-toggle" onclick="toggleBio()">Read more about me ↓</button>
         </div>
       </div>
-      <div class="skills-section">
-        <p class="skills-title">Tech Stack</p>
 
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Skills &amp; Tech Stack</h2>
+    <div class="section-line"></div>
+    <div class="skills-two-col">
+      <div>
+        <p class="skills-title">Tech Stack</p>
         <p class="skills-category">IAM &amp; Security</p>
         <div class="skills-grid">
           <span class="skill-tag">Okta</span>
@@ -366,7 +381,6 @@
           <span class="skill-tag">1Password</span>
           <span class="skill-tag">Microsoft Intune</span>
         </div>
-
         <p class="skills-category">Cloud &amp; Infrastructure</p>
         <div class="skills-grid">
           <span class="skill-tag">AWS</span>
@@ -377,7 +391,6 @@
           <span class="skill-tag">Jamf Pro</span>
           <span class="skill-tag">Slack Enterprise Grid</span>
         </div>
-
         <p class="skills-category">Dev &amp; DevOps</p>
         <div class="skills-grid">
           <span class="skill-tag">GitHub</span>
@@ -385,7 +398,6 @@
           <span class="skill-tag">Datadog</span>
           <span class="skill-tag">Bitbucket</span>
         </div>
-
         <p class="skills-category">Productivity &amp; Automation</p>
         <div class="skills-grid">
           <span class="skill-tag">Zapier</span>
@@ -394,8 +406,9 @@
           <span class="skill-tag">Zendesk</span>
           <span class="skill-tag">Salesforce</span>
         </div>
-
-        <p class="skills-title" style="margin-top: 1.75rem;">Skills</p>
+      </div>
+      <div>
+        <p class="skills-title">Skills</p>
         <div class="skills-grid">
           <span class="skill-tag">Identity &amp; Access Management</span>
           <span class="skill-tag">IT Systems Engineering</span>
@@ -410,61 +423,6 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <h2 class="section-title">Projects</h2>
-    <div class="section-line"></div>
-    <div class="projects-wrapper">
-    <div class="projects-overlay"><span class="projects-banner">Coming Soon</span></div>
-    <div class="projects-grid">
-
-      <div class="project-card">
-        <h3>DataPulse</h3>
-        <p>A real-time analytics dashboard for monitoring API health, latency, and error rates across microservices.</p>
-        <div class="project-tags">
-          <span class="project-tag">React</span>
-          <span class="project-tag">Node.js</span>
-          <span class="project-tag">WebSockets</span>
-        </div>
-        <div class="project-links">
-          <a href="#">GitHub →</a>
-          <a href="#">Live Demo →</a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <h3>Pocketlist</h3>
-        <p>A minimalist task manager with smart scheduling, built as a PWA with offline support and sync.</p>
-        <div class="project-tags">
-          <span class="project-tag">TypeScript</span>
-          <span class="project-tag">IndexedDB</span>
-          <span class="project-tag">PWA</span>
-        </div>
-        <div class="project-links">
-          <a href="#">GitHub →</a>
-          <a href="#">Live Demo →</a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <h3>Vectr</h3>
-        <p>An open-source CLI tool for managing embeddings and semantic search over local document collections.</p>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">FAISS</span>
-          <span class="project-tag">OpenAI</span>
-        </div>
-        <div class="project-links">
-          <a href="#">GitHub →</a>
-        </div>
-      </div>
-
-    </div>
-    </div><!-- /projects-wrapper -->
   </div>
 </section>
 
@@ -537,6 +495,61 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+    <div class="projects-wrapper">
+    <div class="projects-overlay"><span class="projects-banner">Coming Soon</span></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <h3>DataPulse</h3>
+        <p>A real-time analytics dashboard for monitoring API health, latency, and error rates across microservices.</p>
+        <div class="project-tags">
+          <span class="project-tag">React</span>
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">WebSockets</span>
+        </div>
+        <div class="project-links">
+          <a href="#">GitHub →</a>
+          <a href="#">Live Demo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>Pocketlist</h3>
+        <p>A minimalist task manager with smart scheduling, built as a PWA with offline support and sync.</p>
+        <div class="project-tags">
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">IndexedDB</span>
+          <span class="project-tag">PWA</span>
+        </div>
+        <div class="project-links">
+          <a href="#">GitHub →</a>
+          <a href="#">Live Demo →</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>Vectr</h3>
+        <p>An open-source CLI tool for managing embeddings and semantic search over local document collections.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">FAISS</span>
+          <span class="project-tag">OpenAI</span>
+        </div>
+        <div class="project-links">
+          <a href="#">GitHub →</a>
+        </div>
+      </div>
+
+    </div>
+    </div><!-- /projects-wrapper -->
   </div>
 </section>
 
