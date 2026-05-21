@@ -237,6 +237,77 @@
   @media (max-width: 640px) and (orientation: portrait) {
     .projects-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── SCROLL-TRIGGERED ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Stagger children inside a reveal-stagger parent */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0.05s; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.15s; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.25s; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.35s; }
+  .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay: 0.45s; }
+  .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay: 0.55s; }
+
+  /* Timeline item fade-in from left */
+  .timeline-item {
+    opacity: 0;
+    transform: translateX(-18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Hero entrance — fires immediately on load */
+  .hero-text .tag   { opacity: 0; transform: translateY(16px); animation: heroFadeUp 0.5s ease 0.1s forwards; }
+  .hero-text h1     { opacity: 0; transform: translateY(16px); animation: heroFadeUp 0.5s ease 0.25s forwards; }
+  .hero-text p      { opacity: 0; transform: translateY(16px); animation: heroFadeUp 0.5s ease 0.4s forwards; }
+  .btn-row          { opacity: 0; transform: translateY(16px); animation: heroFadeUp 0.5s ease 0.55s forwards; }
+  .hero-avatar      { opacity: 0; transform: scale(0.92);      animation: heroFadeUp 0.55s ease 0.2s forwards; }
+  @keyframes heroFadeUp {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ── TYPEWRITER / ROTATING HEADLINE ── */
+  #hero-rotating { display: inline; }
+  .hero-cursor {
+    display: inline-block;
+    width: 3px;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: baseline;
+    animation: blink 0.85s step-end infinite;
+    border-radius: 1px;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── PROJECT CARD HOVER LIFT ── */
+  .project-card {
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    cursor: default;
+  }
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    border-color: var(--accent);
+  }
+  [data-theme="dark"] .project-card:hover {
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  }
 </style>
 </head>
 <body>
@@ -337,7 +408,7 @@
     <div class="hero-text">
       <span class="tag">Open to opportunities</span>
       <h1>Hi, I'm Joseph 👋</h1>
-      <p>Father of four, USMC veteran, and System Engineer II based in the Greater Seattle Area. I architect scalable identity governance, engineer enterprise automation frameworks, and lead cross-functional infrastructure initiatives that secure and accelerate business operations.</p>
+      <p><span id="hero-rotating"></span><span class="hero-cursor" id="hero-cursor" aria-hidden="true"></span></p>
       <div class="btn-row">
         <a href="#projects" class="btn btn-primary">View My Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -350,9 +421,9 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
-    <h2 class="section-title">About Me</h2>
-    <div class="section-line"></div>
-    <div class="about-grid">
+    <h2 class="section-title reveal">About Me</h2>
+    <div class="section-line reveal"></div>
+    <div class="about-grid reveal">
       <div class="about-bio">
         <p>On the professional side, I'm always looking for the next thing to learn and build. This site is a good example — I used AI to help me navigate purchasing a domain, setting up email routing, building and deploying the front end, integrating third-party tools, and everything in between. Not because I couldn't eventually figure it out alone, but because I wanted to see how far I could get by working smarter. I'm currently renewing my AWS Certified Cloud Practitioner certification and working toward my Okta Administrator certification — both a natural extension of the work I do every day.</p>
         <div class="about-expand">
@@ -374,9 +445,9 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <h2 class="section-title">Skills &amp; Tech Stack</h2>
-    <div class="section-line"></div>
-    <div class="skills-two-col">
+    <h2 class="section-title reveal">Skills &amp; Tech Stack</h2>
+    <div class="section-line reveal"></div>
+    <div class="skills-two-col reveal">
       <div>
         <p class="skills-title">Tech Stack</p>
         <p class="skills-category">IAM &amp; Security</p>
@@ -454,9 +525,9 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="container">
-    <h2 class="section-title">Experience</h2>
-    <div class="section-line"></div>
-    <p class="experience-linkedin">For a detailed view of my experience, <a href="https://www.linkedin.com/in/joseph-loberg/" target="_blank">visit my LinkedIn →</a></p>
+    <h2 class="section-title reveal">Experience</h2>
+    <div class="section-line reveal"></div>
+    <p class="experience-linkedin reveal">For a detailed view of my experience, <a href="https://www.linkedin.com/in/joseph-loberg/" target="_blank">visit my LinkedIn →</a></p>
     <div class="timeline">
 
       <div class="timeline-item">
@@ -526,9 +597,9 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <h2 class="section-title">Projects</h2>
-    <div class="section-line"></div>
-    <div class="projects-wrapper">
+    <h2 class="section-title reveal">Projects</h2>
+    <div class="section-line reveal"></div>
+    <div class="projects-wrapper reveal">
     <div class="projects-grid">
 
       <div class="project-card">
@@ -589,9 +660,9 @@
 <!-- BOW HUNT TEASER -->
 <section id="beyond">
   <div class="container">
-    <h2 class="section-title">Beyond Work</h2>
-    <div class="section-line"></div>
-    <div class="beyond-card">
+    <h2 class="section-title reveal">Beyond Work</h2>
+    <div class="section-line reveal"></div>
+    <div class="beyond-card reveal">
       <div class="beyond-visual">🏹</div>
       <div class="beyond-content">
         <div class="beyond-badge">🌲 Coming Soon</div>
@@ -608,9 +679,9 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <h2 class="section-title">Contact</h2>
-    <div class="section-line"></div>
-    <div class="contact-box">
+    <h2 class="section-title reveal">Contact</h2>
+    <div class="section-line reveal"></div>
+    <div class="contact-box reveal">
       <h3>Let's connect</h3>
       <p>Whether you have a role in mind, want to collaborate, or just want to talk shop — send me a message and I'll get back to you.</p>
       <div data-fs-success class="form-status success contact-success" style="display:none">✅ Thanks! Your message has been sent — I'll get back to you soon.</div>
@@ -724,5 +795,76 @@
 
   <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
   <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
+
+  <script>
+    // ── SCROLL-TRIGGERED REVEAL ──
+    const revealEls = document.querySelectorAll('.reveal, .timeline-item');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          if (el.classList.contains('timeline-item')) {
+            const siblings = Array.from(el.closest('.timeline').querySelectorAll('.timeline-item'));
+            const idx = siblings.indexOf(el);
+            setTimeout(() => el.classList.add('visible'), idx * 110);
+          } else {
+            el.classList.add('visible');
+          }
+          revealObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ── TYPEWRITER / ROTATING HEADLINE ──
+    const phrases = [
+      'Father of four & USMC veteran.',
+      'System Engineer II in Greater Seattle.',
+      'Identity governance architect.',
+      'Enterprise automation builder.',
+      'Bow hunter in training. 🏹',
+      'Working smarter, building faster.'
+    ];
+
+    const rotatingEl = document.getElementById('hero-rotating');
+    const cursorEl   = document.getElementById('hero-cursor');
+
+    let phraseIdx  = 0;
+    let charIdx    = 0;
+    let isDeleting = false;
+    let isPaused   = false;
+
+    const TYPE_SPEED   = 42;
+    const DELETE_SPEED = 22;
+    const PAUSE_END    = 2200;
+    const PAUSE_START  = 380;
+
+    function tick() {
+      const current = phrases[phraseIdx];
+      if (!isDeleting && !isPaused) {
+        charIdx++;
+        rotatingEl.textContent = current.slice(0, charIdx);
+        if (charIdx === current.length) {
+          isPaused = true;
+          setTimeout(() => { isPaused = false; isDeleting = true; tick(); }, PAUSE_END);
+          return;
+        }
+        setTimeout(tick, TYPE_SPEED);
+      } else if (isDeleting) {
+        charIdx--;
+        rotatingEl.textContent = current.slice(0, charIdx);
+        if (charIdx === 0) {
+          isDeleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          setTimeout(tick, PAUSE_START);
+          return;
+        }
+        setTimeout(tick, DELETE_SPEED);
+      }
+    }
+
+    setTimeout(tick, 900);
+  </script>
 </body>
 </html>
