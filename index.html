@@ -844,11 +844,9 @@
     const PAUSE_END    = 2200;
     const PAUSE_START  = 380;
 
-    const EGA_URL = './ega.svg';
-
     // phrase index -> suffix HTML to show when fully typed
     const PHRASE_SUFFIXES = {
-      1: `<img src="${EGA_URL}" alt="Eagle Globe and Anchor" style="height:22px;width:auto;vertical-align:middle;margin-left:7px;opacity:0;transition:opacity 0.4s ease;" id="phrase-icon">`,
+      1: `<object type="image/svg+xml" data="./ega.svg" id="phrase-icon" aria-label="Eagle Globe and Anchor" style="height:22px;width:22px;vertical-align:middle;margin-left:7px;opacity:0;transition:opacity 0.4s ease;pointer-events:none;"></object>`,
       2: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="phrase-icon" style="height:22px;width:auto;vertical-align:middle;margin-left:7px;opacity:0;transition:opacity 0.4s ease;" aria-hidden="true"><path d="M247 32v87h18V32zm-40.4 105 14.5 29-68 17h205.8l-68-17 14.5-29zm-73 64-7 14h258.8l-7-14zm-55.88 32 21 14H413.3l21-14H77.72zm63.58 32 8.8 22h211.8l8.8-22zM124 305v18h50.3l36.6 171h18.4l-36.6-171H240v171h32V323h47.3l-36.6 171h18.4l36.6-171H388v-18H124z" fill="currentColor"/></svg>`,
       3: `<span id="phrase-icon" style="opacity:0;transition:opacity 0.4s ease;margin-left:5px;">🔐</span>`,
       5: `<span id="phrase-icon" style="opacity:0;transition:opacity 0.4s ease;margin-left:5px;">🚀</span>`,
