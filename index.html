@@ -801,8 +801,8 @@
     const revealEls = document.querySelectorAll('.reveal, .timeline-item');
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const el = entry.target;
         if (entry.isIntersecting) {
-          const el = entry.target;
           if (el.classList.contains('timeline-item')) {
             const siblings = Array.from(el.closest('.timeline').querySelectorAll('.timeline-item'));
             const idx = siblings.indexOf(el);
@@ -810,7 +810,9 @@
           } else {
             el.classList.add('visible');
           }
-          revealObserver.unobserve(el);
+        } else {
+          // Fade out when scrolled past — clear any pending stagger timers too
+          el.classList.remove('visible');
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
@@ -819,12 +821,14 @@
 
     // ── TYPEWRITER / ROTATING HEADLINE ──
     const phrases = [
-      'Father of four & USMC veteran.',
-      'System Engineer II in Greater Seattle.',
-      'Identity governance architect.',
+      'Father of four.',
+      'United States Marine Corps Veteran.',
+      'System Engineer II in the Greater Seattle Area.',
+      'Identity Governance Architect.',
       'Enterprise automation builder.',
-      'Bow hunter in training. 🏹',
-      'Working smarter, building faster.'
+      'Working smarter, building faster.',
+      'Bow hunter in training.',
+      'Lifts heavy things. Puts them back down.'
     ];
 
     const rotatingEl = document.getElementById('hero-rotating');
