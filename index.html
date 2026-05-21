@@ -124,7 +124,7 @@
   /* PROJECTS */
   #projects { background: var(--bg); }
   .projects-wrapper { position: relative; }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; filter: blur(4px); pointer-events: none; user-select: none; opacity: 0.5; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
   .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
   .project-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
   .project-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1rem; }
@@ -309,7 +309,9 @@
       const full = document.getElementById('about-full');
       const btn = document.getElementById('about-toggle');
       full.classList.toggle('open');
-      btn.textContent = full.classList.contains('open') ? 'Collapse ↑' : 'Read more about me ↓';
+      const isOpen = full.classList.contains('open');
+      btn.textContent = isOpen ? 'Collapse ↑' : 'Read more about me ↓';
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
     const hamburger = document.getElementById('hamburger');
@@ -331,7 +333,7 @@
     <div class="hero-text">
       <span class="tag">Open to opportunities</span>
       <h1>Hi, I'm Joseph 👋</h1>
-      <p>Father of four, USMC veteran, and System Engineer II based in the Greater Seattle Area. I untangle complex IT challenges and build things that make people's work easier.</p>
+      <p>Father of four, USMC veteran, and System Engineer II based in the Greater Seattle Area. I architect scalable identity governance, engineer enterprise automation frameworks, and lead cross-functional infrastructure initiatives that secure and accelerate business operations.</p>
       <div class="btn-row">
         <a href="#projects" class="btn btn-primary">View My Work</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
@@ -357,7 +359,7 @@
             <p>Outside of work I'm a family man through and through. My blended family of six keeps life full — two older boys, two younger girls, and a schedule that revolves around sports sidelines and exploring the Pacific Northwest. I'm originally from Bird Creek, Alaska, and after years of moving around — Washington, Alaska, Nevada, the Marines — I landed back in Washington for family, and everything else has fallen into place. I recently picked up a compound bow, and the plan is to document the whole journey from beginner to first harvest. I was a five-time expert rifleman in the Marines, so rifle hunting never felt like the right challenge — I'd rather earn it the hard way, up close.</p>
             <p><em>If I seem like someone who overshares a little — that's accurate, and I've made peace with it.</em></p>
           </div>
-          <button class="about-toggle" id="about-toggle" onclick="toggleBio()">Read more about me ↓</button>
+          <button class="about-toggle" id="about-toggle" onclick="toggleBio()" aria-expanded="false" aria-controls="about-full">Read more about me ↓</button>
         </div>
       </div>
 
@@ -523,47 +525,55 @@
     <h2 class="section-title">Projects</h2>
     <div class="section-line"></div>
     <div class="projects-wrapper">
-    <div class="projects-overlay"><span class="projects-banner">Coming Soon</span></div>
     <div class="projects-grid">
 
       <div class="project-card">
-        <h3>DataPulse</h3>
-        <p>A real-time analytics dashboard for monitoring API health, latency, and error rates across microservices.</p>
+        <h3>Identity Governance &amp; Decentralized Architecture</h3>
+        <p>Owned the architectural discovery, sandbox validation, and global enterprise rollout of Okta Realms to decentralize IAM matrices across major business divisions. Engineered isolated administrative boundaries and custom role frameworks enforcing strict least-privilege governance.</p>
         <div class="project-tags">
-          <span class="project-tag">React</span>
-          <span class="project-tag">Node.js</span>
-          <span class="project-tag">WebSockets</span>
-        </div>
-        <div class="project-links">
-          <a href="#">GitHub →</a>
-          <a href="#">Live Demo →</a>
+          <span class="project-tag">Okta Identity Cloud</span>
+          <span class="project-tag">Okta Realms</span>
+          <span class="project-tag">SAML 2.0 / SSO</span>
+          <span class="project-tag">IGA</span>
+          <span class="project-tag">Identity Architecture</span>
         </div>
       </div>
 
       <div class="project-card">
-        <h3>Pocketlist</h3>
-        <p>A minimalist task manager with smart scheduling, built as a PWA with offline support and sync.</p>
+        <h3>High-Stakes Lifecycle Automation Engine</h3>
+        <p>Designed and scaled automated workflows for complex employee lifecycle events. Entrusted with highly confidential data to build emergency workflows that instantly revoked system access, reassigned cloud data, and remotely sanitized corporate endpoints simultaneously during major restructurings — zero business continuity disruptions.</p>
         <div class="project-tags">
-          <span class="project-tag">TypeScript</span>
-          <span class="project-tag">IndexedDB</span>
-          <span class="project-tag">PWA</span>
-        </div>
-        <div class="project-links">
-          <a href="#">GitHub →</a>
-          <a href="#">Live Demo →</a>
+          <span class="project-tag">Okta Workflows</span>
+          <span class="project-tag">Jira Automation</span>
+          <span class="project-tag">SaaS Operations</span>
+          <span class="project-tag">Jamf MDM</span>
+          <span class="project-tag">Data Protection</span>
         </div>
       </div>
 
       <div class="project-card">
-        <h3>Vectr</h3>
-        <p>An open-source CLI tool for managing embeddings and semantic search over local document collections.</p>
+        <h3>Enterprise Infrastructure Overhaul &amp; Migration</h3>
+        <p>Served as technical lead across multiple departments to execute system migrations and software asset consolidation. Audited and mapped over 7,000 public and private communication channels into partitioned Slack Enterprise Grid workspaces, troubleshooting complex API and bot integration failures post-migration to preserve critical business tools.</p>
         <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">FAISS</span>
-          <span class="project-tag">OpenAI</span>
+          <span class="project-tag">Slack Enterprise Grid</span>
+          <span class="project-tag">Mimecast SEG</span>
+          <span class="project-tag">Atlassian Jira / Confluence</span>
+          <span class="project-tag">Google Workspace</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>Serverless Architecture Portfolio Hub</h3>
+        <p>Architected, customized, and deployed this portfolio using cloud-native serverless architecture. Maintained complete codebase autonomy while leveraging global edge caching, and developed custom webhooks to pipeline lead-generation tools natively — no CMS overhead.</p>
+        <div class="project-tags">
+          <span class="project-tag">Cloudflare Workers</span>
+          <span class="project-tag">Cloudflare Pages</span>
+          <span class="project-tag">GitHub Actions</span>
+          <span class="project-tag">CI/CD Pipeline</span>
+          <span class="project-tag">Responsive Engineering</span>
         </div>
         <div class="project-links">
-          <a href="#">GitHub →</a>
+          <a href="https://github.com/joe-loberg" target="_blank">View Repository →</a>
         </div>
       </div>
 
@@ -646,7 +656,7 @@
         }
         errorEl.textContent = msg;
         input.setAttribute('aria-invalid', msg ? 'true' : 'false');
-        input.style.borderColor = msg ? '#DC2626' : '';
+        input.style.borderColor = msg ? '#DC2626' : 'var(--border)';
         return msg === '';
       }
 
